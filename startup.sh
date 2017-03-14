@@ -9,6 +9,8 @@
 #
 ###################################################################################
 
+tail -n +2 /etc/hosts > hosts.temp && echo "127.0.0.1	localhost subsonic.org " | cat - hosts.temp > /etc/hosts && rm hosts.temp
+
 SUBSONIC_HOME=/var/subsonic
 SUBSONIC_HOST=0.0.0.0
 SUBSONIC_PORT=4040
