@@ -17,8 +17,8 @@ RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
 
 ENV SUBSONIC_VERSION 6.0
 
-ADD http://downloads.sourceforge.net/project/subsonic/subsonic/$SUBSONIC_VERSION/subsonic-$SUBSONIC_VERSION.deb?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fsubsonic%2Ffiles%2Fsubsonic%2F$SUBSONIC_VERSION%2F&ts=1421842428&use_mirror=optimate /tmp/subsonic-$SUBSONIC_VERSION.deb
-RUN dpkg -i /tmp/subsonic-$SUBSONIC_VERSION.deb && rm -f /tmp/*.deb
+COPY subsonic-6.0.deb /tmp/subsonic-6.0.deb
+RUN dpkg -i /tmp/subsonic-6.0.deb && rm -f /tmp/*.deb
 
 # Create hardlinks to the transcoding binaries.
 # This way we can mount a volume over /var/subsonic.
@@ -28,7 +28,6 @@ RUN dpkg -i /tmp/subsonic-$SUBSONIC_VERSION.deb && rm -f /tmp/*.deb
 # <host-dir>/var/subsonic/transcode/lame -> /usr/local/bin/lame
 RUN ln /var/subsonic/transcode/ffmpeg /var/subsonic/transcode/lame /usr/local/bin
 
-RUN tail -n +2 /etc/hosts > hosts.temp && echo "127.0.0.1	localhost subsonic.org " | cat - hosts.temp > /etc/hosts && rm hosts.temp
 
 VOLUME /var/subsonic
 
