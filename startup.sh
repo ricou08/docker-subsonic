@@ -9,6 +9,8 @@
 #
 ###################################################################################
 
+
+# Modification du fichier hosts permettant d'empecher la vérification de la license
 tail -n +2 /etc/hosts > hosts.temp && echo "127.0.0.1	localhost subsonic.org " | cat - hosts.temp > /etc/hosts && rm hosts.temp
 
 SUBSONIC_HOME=/var/subsonic
