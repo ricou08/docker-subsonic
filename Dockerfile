@@ -1,4 +1,5 @@
-FROM debian:jessie
+FROM debian:jessie 
+
 
 MAINTAINER michael@schuerig.de
 
@@ -9,11 +10,21 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN useradd --home /var/subsonic -M subsonic -K UID_MIN=10000 -K GID_MIN=10000 && \
     mkdir -p /var/subsonic && chown subsonic /var/subsonic && chmod 0770 /var/subsonic
 
+
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     apt-get update && \
     apt-get dist-upgrade --yes --no-install-recommends --no-install-suggests && \
-    apt-get install --yes --no-install-recommends --no-install-suggests openjdk-7-jre-headless locales && \
+    apt-get install --yes --no-install-recommends --no-install-suggests openjdk-7-jre-headless locales  && \
     apt-get clean
+
+
+RUN echo deb http://ftp.uk.debian.org/debian jessie-backports main \ 
+                  >>/etc/apt/sources.list
+
+
+RUN  apt-get update
+
+RUN  apt-get install --yes --no-install-recommends --no-install-suggests ffmpeg
 
 ENV SUBSONIC_VERSION 6.0
 
